@@ -20,7 +20,7 @@ class KintoneCommentQuoter {
     let selectedText: string = window.getSelection().toString();
     if (!selectedText) {
       selectedText = this.wholeText();
-    };
+    }
 
     const responseLink: HTMLElement = <HTMLElement>this.parentUl.querySelector('.ocean-ui-comments-commentbase-comment');
     responseLink.click();
