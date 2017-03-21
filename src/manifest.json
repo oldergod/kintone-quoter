@@ -1,0 +1,25 @@
+{
+  "name": "kintone Comment Quoter",
+  "short_name": "kCQ",
+  "description": "kintoneスペースにてコメントを引用できる拡張",
+  "manifest_version": 2,
+  "version": "0.0.2",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.cybozu.com/k/*",
+        "https://*.cybozu-dev.com/k/*"
+      ],
+      "js": [
+        "contentScript.js"
+      ],
+      "css": [
+        "contentScript.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    "assets/ic_format_quote_black_24px.svg"
+  ]
+}

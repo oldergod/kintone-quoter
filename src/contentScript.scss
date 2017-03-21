@@ -1,0 +1,25 @@
+.ocean-ui-comments-commentbase-quote {
+  margin-left: 16px;
+  user-select: none;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/assets/ic_format_quote_black_24px.svg');
+  display: inline-block;
+  padding-left: 20px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-position: left 4px;
+  background-size: 16px 14px;
+  color: #888;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity .5s;
+  will-change: opacity;
+
+  &:hover{
+    color: #6f6f6f;
+  }
+}
+.ocean-ui-comments-commentbase-entity {
+  &:hover .ocean-ui-comments-commentbase-quote {
+    opacity: 1;
+  }
+}

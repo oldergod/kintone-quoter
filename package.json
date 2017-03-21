@@ -1,0 +1,26 @@
+{
+  "name": "kintone-field-copier",
+  "version": "0.0.3",
+  "description": "kintoneタスクのキーをコピーできる拡張",
+  "devDependencies": {
+    "del": "^2.2.1",
+    "gulp": "^3.9.1",
+    "gulp-bump": "^2.2.0",
+    "gulp-license": "^1.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-zip": "^3.2.0",
+    "run-sequence": "^1.2.2",
+    "@types/chrome": "0.0.42",
+    "gulp-typescript": "^3.1.6",
+    "typescript": "^2.2.1"
+  },
+  "author": "oldergod",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oldergod/kintone-field-copier.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oldergod/kintone-field-copier/issues"
+  },
+  "homepage": "https://github.com/oldergod/kintone-field-copier"
+}
