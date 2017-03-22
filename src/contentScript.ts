@@ -1,6 +1,6 @@
-class KintoneCommentQuoter {
+class KintoneSpaceQuoter {
   private parentUl: HTMLUListElement;
-  
+
   constructor(parentUl) {
     this.parentUl = parentUl;
   }
@@ -26,11 +26,55 @@ class KintoneCommentQuoter {
     const responseLink: HTMLElement = <HTMLElement>this.parentUl.querySelector('.ocean-ui-comments-commentbase-comment');
     responseLink.click();
 
-    const quotingNode: HTMLDivElement = this.quotingNode(selectedText);
+    const quotingNode: HTMLDivElement = KintoneQuoterHelper.quotingNode(selectedText);
     requestAnimationFrame(() => window.getSelection().getRangeAt(0).insertNode(quotingNode));
   }
 
-  quotingNode(text: string): HTMLDivElement {
+  wholeText(): string {
+    const commentBaseBody: HTMLElement = <HTMLElement>this.parentUl.closest('.ocean-ui-comments-commentbase-body');
+    const commentBaseContents: HTMLElement = <HTMLElement>commentBaseBody.querySelector('.ocean-ui-comments-commentbase-contents');
+    return commentBaseContents.innerText.trim();
+  }
+}
+
+class KintoneAppCommentQuoter {
+  private parentDiv: HTMLDivElement;
+
+  constructor(parentDiv) {
+    this.parentDiv = parentDiv;
+  }
+
+  render(): void {
+    const element: HTMLAnchorElement = document.createElement('a');
+    element.innerText = '引用';
+    element.addEventListener('click', this.quote.bind(this));
+    element.classList.add('commentlist-footer-quote-gaia');
+
+    this.parentDiv.appendChild(element);
+  }
+
+  quote(event: Event): void {
+    let selectedText: string = window.getSelection().toString();
+    if (!selectedText) {
+      selectedText = this.wholeText();
+    }
+
+    const responseLink: HTMLElement = <HTMLElement>this.parentDiv.querySelector('.commentlist-footer-reply-gaia');
+    responseLink.click();
+
+    const quotingNode: HTMLDivElement = KintoneQuoterHelper.quotingNode(selectedText);
+    requestAnimationFrame(() => window.getSelection().getRangeAt(0).insertNode(quotingNode));
+  }
+
+  wholeText(): string {
+    const commentBase: HTMLElement = <HTMLElement>this.parentDiv.closest('.itemlist-item-gaia');
+    const commentBaseBody: HTMLElement = <HTMLElement>commentBase.querySelector('.commentlist-body-gaia');
+    return commentBaseBody.innerText.trim();
+  }
+}
+
+class KintoneQuoterHelper {
+  static quotingNode(text: string): HTMLDivElement {
     const fontTag: HTMLFontElement = document.createElement('font');
     fontTag.style.color = '#999999';
     fontTag.innerText = '> ' + text.split('\n').join('\n> ');
@@ -42,15 +86,9 @@ class KintoneCommentQuoter {
     divTag.appendChild(italicTag);
     return divTag;
   }
-
-  wholeText(): string {
-    const commentBaseBody: HTMLElement = <HTMLElement>this.parentUl.closest('.ocean-ui-comments-commentbase-body');
-    const commentBaseContents: HTMLElement = <HTMLElement>commentBaseBody.querySelector('.ocean-ui-comments-commentbase-contents');
-    return commentBaseContents.innerText.trim();
-  }
 }
 
-class KintoneCommentQuoterLooper {
+class KintoneQuoterLooper {
   private modifiedDomIds: number[];
 
   constructor() {
@@ -66,11 +104,15 @@ class KintoneCommentQuoterLooper {
   }
 
   loop(): void {
-    setInterval(this.step.bind(this), KintoneCommentQuoterLooper.DELAY);
+    setInterval(this.step.bind(this), KintoneQuoterLooper.DELAY);
   }
 
   step(): void {
-    // ocean-ui-comments-comment-id-331590
+    this.stepSpace();
+    this.stepAppComment();
+  }
+
+  stepSpace(): void {
     const commentBases = document.querySelectorAll('div.ocean-ui-comments-commentbase');
     Array.from(commentBases).forEach(commentBase => {
       const classString: string = commentBase.classList.toString();
@@ -81,10 +123,20 @@ class KintoneCommentQuoterLooper {
 
       if (this.modifiedDomIds.includes(commentBaseId)) return;
       this.modifiedDomIds.push(commentBaseId);
-      const kintoneCommentQuoter = new KintoneCommentQuoter(commentBase.querySelector('.ocean-ui-comments-commentbase-actions'));
+      const kintoneCommentQuoter = new KintoneSpaceQuoter(commentBase.querySelector('.ocean-ui-comments-commentbase-actions'));
+      kintoneCommentQuoter.render();
+    })
+  }
+
+  stepAppComment(): void {
+    const itemList = document.querySelectorAll('div.itemlist-item-gaia');
+    Array.from(itemList).forEach(item => {
+      if (item.querySelector('.commentlist-footer-quote-gaia')) return;
+
+      const kintoneCommentQuoter = new KintoneAppCommentQuoter(item.querySelector('.itemlist-footer-gaia'));
       kintoneCommentQuoter.render();
     })
   }
 }
 
-new KintoneCommentQuoterLooper().init();
+new KintoneQuoterLooper().init();

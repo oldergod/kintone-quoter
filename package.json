@@ -1,7 +1,7 @@
 {
-  "name": "kintone-field-copier",
-  "version": "0.0.3",
-  "description": "kintoneタスクのキーをコピーできる拡張",
+  "name": "kintone-quoter",
+  "version": "0.0.5",
+  "description": "kintoneスペースとアプリのコメントを引用できる拡張",
   "devDependencies": {
     "del": "^2.2.1",
     "gulp": "^3.9.1",
@@ -17,10 +17,10 @@
   "author": "oldergod",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oldergod/kintone-field-copier.git"
+    "url": "https://github.com/oldergod/kintone-quoter.git"
   },
   "bugs": {
-    "url": "https://github.com/oldergod/kintone-field-copier/issues"
+    "url": "https://github.com/oldergod/kintone-quoter/issues"
   },
-  "homepage": "https://github.com/oldergod/kintone-field-copier"
+  "homepage": "https://github.com/oldergod/kintone-quoter"
 }

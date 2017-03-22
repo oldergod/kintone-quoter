@@ -1,4 +1,4 @@
-.ocean-ui-comments-commentbase-quote {
+.ocean-ui-comments-commentbase-quote, .commentlist-footer-quote-gaia {
   margin-left: 16px;
   user-select: none;
   background-image: url('chrome-extension://__MSG_@@extension_id__/assets/ic_format_quote_black_24px.svg');
@@ -20,6 +20,11 @@
 }
 .ocean-ui-comments-commentbase-entity {
   &:hover .ocean-ui-comments-commentbase-quote {
+    opacity: 1;
+  }
+}
+.itemlist-item-gaia {
+  &:hover .commentlist-footer-quote-gaia {
     opacity: 1;
   }
 }

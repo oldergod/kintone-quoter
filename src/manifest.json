@@ -1,9 +1,9 @@
 {
-  "name": "kintone Comment Quoter",
-  "short_name": "kCQ",
-  "description": "kintoneスペースにてコメントを引用できる拡張",
+  "name": "kintone Quoter",
+  "short_name": "kQ",
+  "description": "kintoneスペースとアプリのコメントを引用できる拡張",
   "manifest_version": 2,
-  "version": "0.0.2",
+  "version": "0.0.4",
   "content_scripts": [
     {
       "matches": [
