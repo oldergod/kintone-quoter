@@ -5,11 +5,15 @@ class KintoneSpaceQuoter {
     this.parentUl = parentUl;
   }
 
+  static get QUOTER_CLASS(): string {
+    return 'ocean-ui-comments-commentbase-quote';
+  }
+
   render(): void {
     const element: HTMLAnchorElement = document.createElement('a');
     element.innerText = '引用';
     element.addEventListener('click', this.quote.bind(this));
-    element.classList.add('ocean-ui-comments-commentbase-quote');
+    element.classList.add(KintoneSpaceQuoter.QUOTER_CLASS);
 
     const li: HTMLLIElement = document.createElement('li');
     li.appendChild(element);
@@ -44,11 +48,15 @@ class KintoneAppCommentQuoter {
     this.parentDiv = parentDiv;
   }
 
+  static get QUOTER_CLASS(): string {
+    return 'commentlist-footer-quote-gaia';
+  }
+
   render(): void {
     const element: HTMLAnchorElement = document.createElement('a');
     element.innerText = '引用';
     element.addEventListener('click', this.quote.bind(this));
-    element.classList.add('commentlist-footer-quote-gaia');
+    element.classList.add(KintoneAppCommentQuoter.QUOTER_CLASS);
 
     this.parentDiv.appendChild(element);
   }
@@ -89,11 +97,7 @@ class KintoneQuoterHelper {
 }
 
 class KintoneQuoterLooper {
-  private modifiedDomIds: number[];
-
-  constructor() {
-    this.modifiedDomIds = [];
-  }
+  constructor() { }
 
   init(): void {
     this.loop();
@@ -115,14 +119,8 @@ class KintoneQuoterLooper {
   stepSpace(): void {
     const commentBases = document.querySelectorAll('div.ocean-ui-comments-commentbase');
     Array.from(commentBases).forEach(commentBase => {
-      const classString: string = commentBase.classList.toString();
-      // ugly workaround but hey! Life is short
-      const idContainedString: string | undefined = classString.split(' ').filter(s => /t-id-/.test(s)).pop();
-      if (!idContainedString) return;
-      const commentBaseId: number = Number(idContainedString.split('-').pop());
+      if (commentBase.querySelector(`.${KintoneSpaceQuoter.QUOTER_CLASS}`)) return;
 
-      if (this.modifiedDomIds.includes(commentBaseId)) return;
-      this.modifiedDomIds.push(commentBaseId);
       const kintoneCommentQuoter = new KintoneSpaceQuoter(commentBase.querySelector('.ocean-ui-comments-commentbase-actions'));
       kintoneCommentQuoter.render();
     })
@@ -131,7 +129,7 @@ class KintoneQuoterLooper {
   stepAppComment(): void {
     const itemList = document.querySelectorAll('div.itemlist-item-gaia');
     Array.from(itemList).forEach(item => {
-      if (item.querySelector('.commentlist-footer-quote-gaia')) return;
+      if (item.querySelector(`.${KintoneAppCommentQuoter.QUOTER_CLASS}`)) return;
 
       const kintoneCommentQuoter = new KintoneAppCommentQuoter(item.querySelector('.itemlist-footer-gaia'));
       kintoneCommentQuoter.render();
