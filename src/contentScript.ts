@@ -1,10 +1,11 @@
 class KintoneCommentQuoter {
   private parentUl: HTMLUListElement;
+  
   constructor(parentUl) {
     this.parentUl = parentUl;
   }
 
-  render() {
+  render(): void {
     const element: HTMLAnchorElement = document.createElement('a');
     element.innerText = '引用';
     element.addEventListener('click', this.quote.bind(this));
@@ -56,19 +57,19 @@ class KintoneCommentQuoterLooper {
     this.modifiedDomIds = [];
   }
 
-  init() {
+  init(): void {
     this.loop();
   }
 
-  static get DELAY() {
+  static get DELAY(): number {
     return 300;
   }
 
-  loop() {
+  loop(): void {
     setInterval(this.step.bind(this), KintoneCommentQuoterLooper.DELAY);
   }
 
-  step() {
+  step(): void {
     // ocean-ui-comments-comment-id-331590
     const commentBases = document.querySelectorAll('div.ocean-ui-comments-commentbase');
     Array.from(commentBases).forEach(commentBase => {
