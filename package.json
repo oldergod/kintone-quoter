@@ -1,6 +1,6 @@
 {
   "name": "kintone-quoter",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "kintoneスペースとアプリのコメントを引用できる拡張",
   "devDependencies": {
     "del": "^2.2.1",
