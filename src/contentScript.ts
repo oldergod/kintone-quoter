@@ -130,6 +130,7 @@ class KintoneQuoterLooper {
     const itemList = document.querySelectorAll('div.itemlist-item-gaia');
     Array.from(itemList).forEach(item => {
       if (item.querySelector(`.${KintoneAppCommentQuoter.QUOTER_CLASS}`)) return;
+      if (!item.querySelector('.itemlist-footer-gaia')) return;
 
       const kintoneCommentQuoter = new KintoneAppCommentQuoter(item.querySelector('.itemlist-footer-gaia'));
       kintoneCommentQuoter.render();
